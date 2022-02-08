@@ -38,12 +38,14 @@ public class NuevoEquipoFragment extends Fragment {
                 String nombre = binding.nombre.getText().toString();
                 String historia = binding.historia.getText().toString();
 
-                if (nombre.equals("Barcelona")) {
+                if (nombre.equals("Barcelona") || nombre.equals("F.C Barcelona") || nombre.equals("F.C. Barcelona")) {
                     equiposViewModel.insertar(new Equipo(R.drawable.barcelona, nombre, historia));
-                } else if (nombre.equals("Sevilla")) {
+                } else if (nombre.equals("Sevilla") || nombre.equals("Sevilla F.C") || nombre.equals("Sevilla F.C.")) {
                     equiposViewModel.insertar(new Equipo(R.drawable.sevilla, nombre, historia));
                 } else if (nombre.equals("Real Sociedad")) {
                     equiposViewModel.insertar(new Equipo(R.drawable.realsociedad, nombre, historia));
+                } else if (nombre.equals("Villarreal") || nombre.equals("Villarreal C.F") || nombre.equals("Villarreal C.F.")) {
+                    equiposViewModel.insertar(new Equipo(R.drawable.villareal, nombre, historia));
                 }
 
                 navController.popBackStack();
