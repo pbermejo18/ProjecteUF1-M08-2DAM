@@ -13,9 +13,11 @@
         <entry key="..\:/Users/Pol/AndroidStudioProjects/ProjecteUF1_M08/app/src/main/res/layout/fragment_inicio.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Pol/AndroidStudioProjects/ProjecteUF1_M08/app/src/main/res/layout/fragment_mostrar_elemento.xml" value="0.24909420289855072" />
         <entry key="..\:/Users/Pol/AndroidStudioProjects/ProjecteUF1_M08/app/src/main/res/layout/fragment_mostrar_equipo.xml" value="0.1" />
-        <entry key="..\:/Users/Pol/AndroidStudioProjects/ProjecteUF1_M08/app/src/main/res/layout/fragment_primer.xml" value="0.1793478260869565" />
+        <entry key="..\:/Users/Pol/AndroidStudioProjects/ProjecteUF1_M08/app/src/main/res/layout/fragment_mostrar_partido.xml" value="0.2318840579710145" />
+        <entry key="..\:/Users/Pol/AndroidStudioProjects/ProjecteUF1_M08/app/src/main/res/layout/fragment_primer.xml" value="0.152" />
         <entry key="..\:/Users/Pol/AndroidStudioProjects/ProjecteUF1_M08/app/src/main/res/layout/fragment_segundo.xml" value="0.1" />
-        <entry key="..\:/Users/Pol/AndroidStudioProjects/ProjecteUF1_M08/app/src/main/res/layout/viewholder_elemento.xml" value="0.24909420289855072" />
+        <entry key="..\:/Users/Pol/AndroidStudioProjects/ProjecteUF1_M08/app/src/main/res/layout/viewholder_elemento.xml" value="0.1" />
+        <entry key="..\:/Users/Pol/AndroidStudioProjects/ProjecteUF1_M08/app/src/main/res/layout/viewholder_partido.xml" value="0.2318840579710145" />
         <entry key="..\:/Users/Pol/AndroidStudioProjects/ProjecteUF1_M08/app/src/main/res/menu/drawer_menu.xml" value="0.1" />
       </map>
     </option>

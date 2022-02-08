@@ -2,63 +2,117 @@ package com.example.projecteuf1;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PrimerFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.bumptech.glide.Glide;
+import com.example.projecteuf1.databinding.FragmentPrimerBinding;
+import com.example.projecteuf1.databinding.FragmentSegundoBinding;
+import com.example.projecteuf1.databinding.ViewholderElementoBinding;
+import com.example.projecteuf1.databinding.ViewholderPartidoBinding;
+
+import java.util.List;
+
+
 public class PrimerFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private FragmentPrimerBinding binding;
+    private PartidosViewModel partidosViewModel;
+    private NavController navController;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public PrimerFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PrimerFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PrimerFragment newInstance(String param1, String param2) {
-        PrimerFragment fragment = new PrimerFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return (binding = FragmentPrimerBinding.inflate(inflater, container, false)).getRoot();
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        partidosViewModel = new ViewModelProvider(requireActivity()).get(PartidosViewModel.class);
+        navController = Navigation.findNavController(view);
+
+        binding.irANuevoElemento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //navController.navigate(R.id.action_segundoFragment_to_nuevoEquipoFragment);
+            }
+        });
+
+        PrimerFragment.PartidosAdapter elementosAdapter = new PrimerFragment.PartidosAdapter();
+        binding.recyclerView.setAdapter(elementosAdapter);
+
+        partidosViewModel.obtener().observe(getViewLifecycleOwner(), new Observer<List<Partido>>() {
+            @Override
+            public void onChanged(List<Partido> partidos) {
+                elementosAdapter.establecerLista(partidos);
+            }
+        });
+
+    }
+
+    static class PartidoViewHolder extends RecyclerView.ViewHolder {
+        private final ViewholderPartidoBinding binding;
+
+        public PartidoViewHolder(ViewholderPartidoBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_primer, container, false);
+    class PartidosAdapter extends RecyclerView.Adapter<PrimerFragment.PartidoViewHolder> {
+
+        List<Partido> partidos;
+
+        @NonNull
+        @Override
+        public PrimerFragment.PartidoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return new PrimerFragment.PartidoViewHolder(ViewholderPartidoBinding.inflate(getLayoutInflater(), parent, false));
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull PrimerFragment.PartidoViewHolder holder, int position) {
+
+            Partido partido = partidos.get(position);
+
+            holder.binding.nombre.setText(partido.hora);
+
+            Glide.with(PrimerFragment.this)
+                    .load(partido.escudo_local)
+                    .into(holder.binding.escudoLocal);
+            Glide.with(PrimerFragment.this)
+                    .load(partido.escudo_visitante)
+                    .into(holder.binding.escudoVisitante);
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    partidosViewModel.seleccionar(partido);
+                    navController.navigate(R.id.action_primerFragment_to_mostrarPartidoFragment);
+                }
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return partidos != null ? partidos.size() : 0;
+        }
+
+        public void establecerLista(List<Partido> partidos){
+            this.partidos = partidos;
+            notifyDataSetChanged();
+        }
     }
 }

@@ -9,7 +9,11 @@
         android:id="@+id/primerFragment"
         android:name="com.example.projecteuf1.PrimerFragment"
         android:label="fragment_primer"
-        tools:layout="@layout/fragment_primer" />
+        tools:layout="@layout/fragment_primer" >
+        <action
+            android:id="@+id/action_primerFragment_to_mostrarPartidoFragment"
+            app:destination="@id/mostrarPartidoFragment" />
+    </fragment>
     <fragment
         android:id="@+id/segundoFragment"
         android:name="com.example.projecteuf1.SegundoFragment"
@@ -37,4 +41,9 @@
         android:name="com.example.projecteuf1.NuevoEquipoFragment"
         android:label="fragment_nuevo_equipo"
         tools:layout="@layout/fragment_nuevo_equipo" />
+    <fragment
+        android:id="@+id/mostrarPartidoFragment"
+        android:name="com.example.projecteuf1.MostrarPartidoFragment"
+        android:label="fragment_mostrar_partido"
+        tools:layout="@layout/fragment_mostrar_partido" />
 </navigation>
