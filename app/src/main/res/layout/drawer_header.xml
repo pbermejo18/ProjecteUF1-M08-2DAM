@@ -11,6 +11,7 @@
         android:id="@+id/imageView"
         android:layout_width="115dp"
         android:layout_height="115dp"
+        android:layout_marginTop="16dp"
         android:paddingTop="30dp"
         android:paddingBottom="8dp"
         app:layout_constraintEnd_toEndOf="parent"
